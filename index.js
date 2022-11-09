@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 const app = express();
 const Port = process.env.Port || 5000;
@@ -33,6 +33,12 @@ async function photographyervice() {
       const user = await cursor.limit(3).toArray();
       res.send(user)
     });
+    app.get('/allservices/:id',async (req, res) => {
+      const id = req.params.id;
+      const query = {_id: ObjectId(id) };
+      const result = await servicesCollection.findOne(query);
+      res.send(result);
+    })
   }
   finally {
     
