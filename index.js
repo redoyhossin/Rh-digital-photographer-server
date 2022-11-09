@@ -27,7 +27,12 @@ async function photographyervice() {
       const user = await cursor.toArray();
       res.send(user)
     });
-    
+    app.get('/allserviceshome', async (req, res) => {
+      const query = {};
+      const cursor = servicesCollection.find(query)
+      const user = await cursor.limit(3).toArray();
+      res.send(user)
+    });
   }
   finally {
     
