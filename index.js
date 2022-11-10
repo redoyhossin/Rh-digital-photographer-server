@@ -21,6 +21,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function photographyervice() {
   try {
     const servicesCollection = client.db('photographyervice').collection('services ');
+
     const reviewCollection = client.db('photographyervice').collection('revies');
 
     app.get('/allservices', async (req, res) => {
@@ -41,6 +42,16 @@ async function photographyervice() {
       const result = await servicesCollection.findOne(query);
       res.send(result);
     });
+///
+    app.post('/allservices', async (req,res)=>{
+      const services= req.body;
+      const result = await servicesCollection.insertOne(services)
+      res.send(result)
+      
+    });
+
+
+    ////
 
     // reviews
 
@@ -57,7 +68,8 @@ async function photographyervice() {
       query={
       email:req.query.email
       }
-      }const cursor =reviewCollection.find (query)
+      }
+      const cursor = reviewCollection.find(query)
       const reviews= await cursor.toArray ();
       res.send(reviews)
       
@@ -90,4 +102,3 @@ app.get('/', (req, res) => {
   app.listen(Port, () => {
     console.log('Port run')
   })
-  
