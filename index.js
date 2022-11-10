@@ -80,7 +80,9 @@ async function photographyervice() {
       const query = { _id: ObjectId(id) };
       const result = await reviewCollection.deleteOne(query);
       res.send(result)
-})
+    });
+    
+   
     
 
   }
