@@ -24,6 +24,8 @@ async function photographyervice() {
 
     const reviewCollection = client.db('photographyervice').collection('revies');
 
+    const successCollection = client.db('photographyervice').collection('success');
+
     app.get('/allservices', async (req, res) => {
       const query = {};
       const cursor = servicesCollection.find(query)
@@ -101,13 +103,25 @@ async function photographyervice() {
       const UpdateUser = {
         $set: {
           Message: user.Message,
-          email:user.email
+          email: user.email
         }
       }
       const result = await reviewCollection.updateOne(filter, UpdateUser, options);
       res.send(result);
 
-    })
+    });
+
+    // success
+
+    app.get('/allsuccess', async (req, res) => {
+      const query = {};
+      const cursor = successCollection.find(query)
+      const user = await cursor.toArray();
+      res.send(user)
+    });
+
+
+
 
   }
   finally {
