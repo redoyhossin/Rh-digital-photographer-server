@@ -93,14 +93,18 @@ async function photographyervice() {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const user = req.body;
-      const option = { upsert: true };
+      console.log(user)
+      const options = { upsert: true };
+
+
+
       const UpdateUser = {
         $set: {
-          name: user.name,
+          Message: user.Message,
           email:user.email
         }
       }
-      const result = await reviewCollection.updateOne(filter, UpdateUser, option);
+      const result = await reviewCollection.updateOne(filter, UpdateUser, options);
       res.send(result);
 
     })
